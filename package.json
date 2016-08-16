@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "rm -rf public && mkdir public",
     "build": "NODE_ENV=production webpack",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --hot --inline",
     "deploy": "surge -p public -d parsegen.surge.sh",
     "yolo": "npm run build && npm run deploy"
   },
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/shiva/parsegen#readme",
   "dependencies": {
+    "ampersand-router": "^4.0.0",
     "autoprefixer-stylus": "^0.9.4",
     "babel": "^6.5.2",
     "babel-core": "^6.13.2",
