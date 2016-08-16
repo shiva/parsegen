@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/shiva/parsegen#readme",
   "dependencies": {
+    "ampersand-app": "^2.0.0",
     "ampersand-router": "^4.0.0",
     "autoprefixer-stylus": "^0.9.4",
     "babel": "^6.5.2",
