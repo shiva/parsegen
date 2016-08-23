@@ -4,6 +4,8 @@ import brace from 'brace'
 import AceEditor from 'react-ace'
 import 'brace/mode/c_cpp'
 import 'brace/theme/github'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import { solarizedLight } from 'react-syntax-highlighter/dist/styles'
 
 var init_code = `
 // Write some C code. Press generate when you are done.
@@ -51,9 +53,9 @@ var TestCaseBox = React.createClass({
     },
     render: function() {
         return (
-        <div id={ this.props.id } className='message'>
-        { this.props.value }
-        </div>
+            <SyntaxHighlighter language='javascript' style={solarizedLight}>
+            {this.props.value}
+            </SyntaxHighlighter>
         )
     }
 })
@@ -62,7 +64,8 @@ export default React.createClass({
     displayName: 'PublicPage',
     getInitialState: function() {
        return {
-           code: init_code
+           code: init_code,
+           tests: "nothing"
        }
     },
     updateCode: function(newCode) {
