@@ -10,10 +10,7 @@ export default Router.extend({
     },
 
     public() {
-        ReactDOM.render(<PublicPage/>, document.body)
+        ReactDOM.render(<PublicPage/>, document.getElementById('root'))
     },
 
-    generate () {
-        ReactDOM.render(<TestCasesPage/>, document.body)
-    }
 })

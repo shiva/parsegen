@@ -6,6 +6,7 @@ import 'brace/mode/c_cpp'
 import 'brace/theme/github'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { solarizedLight } from 'react-syntax-highlighter/dist/styles'
+import { docco } from 'react-syntax-highlighter/dist/styles'
 
 var init_code = `
 // Write some C code. Press generate when you are done.
@@ -53,7 +54,7 @@ var TestCaseBox = React.createClass({
     },
     render: function() {
         return (
-            <SyntaxHighlighter language='javascript' style={solarizedLight}>
+            <SyntaxHighlighter id="tests" language='javascript' style={solarizedLight}>
             {this.props.value}
             </SyntaxHighlighter>
         )
@@ -65,6 +66,14 @@ export default React.createClass({
     getInitialState: function() {
        return {
            code: init_code,
+           edProps: {
+               $blockScrolling: true,
+           },
+           edOptions: {
+               showLineNumbers: true,
+               showPrintMargin: true,
+               showGutter: true
+           },
            tests: "nothing"
        }
     },
@@ -72,6 +81,15 @@ export default React.createClass({
        this.setState({
            code: newCode
        })
+    },
+    handleLineNum: function(e) {
+        this.setState({
+            edOptions: {
+                showLineNumbers: !this.state.edOptions.showLineNumbers,
+                showPrintMargin: !this.state.edOptions.showPrintMargin,
+                showGutter: !this.state.edOptions.showGutter
+            }
+        })
     },
     handleGenerate: function(e) {
         console.log("generating tests for " + this.state.code)
@@ -92,21 +110,20 @@ export default React.createClass({
               <div>
                 <p>Parsing C and generating unit-tests for you, because, we can&trade;</p>
               </div>
-
+              <a href='#' onClick={this.handleGenerate} className='button button-large' title="Generate Test Cases">Generate</a>
+              <a href='#' onClick={this.handleLineNum} className='button button-large' title="Toggle styling" >..</a>
               <AceEditor
                   mode="c_cpp"
                   theme="github"
                   onChange={this.updateCode}
                   name="editor"
-                  editorProps={{$blockScrolling: true}}
+                  editorProps={this.state.edProps}
+                  setOptions={this.state.edOptions}
                   value={this.state.code}
                   width="auto"
-                  height="300px"
+                  height="500px"
                 />
-
-                <a href='#' onClick={this.handleGenerate} className='button button-large'>Generate</a>
-
-                <TestCaseBox id="tests" value={this.state.tests} />
+                <TestCaseBox id="tests" value={this.state.tests} height="500px"/>
             </div>
         )
     }
